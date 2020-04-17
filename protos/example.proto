@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package sendMessagePackage;
+
+// The greeting service definition.
+service SendMessage {
+
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc SendMessageToClientOnly(Empty) returns (stream SteamResponse);
+  rpc SendMessageToServerOnly(stream SteamRequest) returns (Empty);
+  rpc TwoWaySendMessage(stream SteamRequest) returns (stream SteamResponse);
+}
+
+enum Type {
+  WEB = 0;
+  NEWS = 1;
+  FOURM = 2;
+  OTHER = 3;
+}
+
+message Empty {
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  int32 id = 1;
+  string message = 2;
+  Type type = 3;
+  repeated int32 list = 4;
+  repeated IdList listObj = 5;
+}
+
+message IdList {
+    int32 id = 1;
+}
+
+message SteamRequest {
+  int32 id = 1;
+  string message = 2;
+}
+
+message SteamResponse {
+  int32 id = 1;
+  string message = 2;
+  Type type = 3;
+}
